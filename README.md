@@ -44,6 +44,7 @@ Each `InMemoryUserStore` instance starts empty and keeps its data for the lifeti
 The store implements the complete UserHarbor persistence contract:
 
 * users and password hashes
+* case-insensitive username lookup and uniqueness with original casing preserved
 * email verification and password reset tokens
 * sessions and session refresh
 * roles and permissions

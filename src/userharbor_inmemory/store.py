@@ -71,12 +71,13 @@ class InMemoryUserStore(UserStore[User]):
             self._transaction_depth -= 1
 
     def create_user(self, user: CreateUserRequest) -> None:
-        if user.username in self._users or any(
+        username_key = user.username.casefold()
+        if username_key in self._users or any(
             stored_user.email == user.email for stored_user in self._users.values()
         ):
             raise ValueError("Username or email already exists")
 
-        self._users[user.username] = _StoredUser(
+        self._users[username_key] = _StoredUser(
             username=user.username,
             email=user.email,
             password_hash=user.password_hash,
@@ -88,20 +89,21 @@ class InMemoryUserStore(UserStore[User]):
         )
 
     def set_user_verified(self, username: str) -> None:
-        user = self._users.get(username)
+        user = self._users.get(username.casefold())
         if user is not None:
             user.verified = True
 
     def delete_user(self, username: str) -> None:
-        if self._users.pop(username, None) is None:
+        user = self._users.pop(username.casefold(), None)
+        if user is None:
             return
 
-        self._remove_user_tokens(self._email_verifications, username)
-        self._remove_user_tokens(self._sessions, username)
-        self._remove_user_tokens(self._password_resets, username)
+        self._remove_user_tokens(self._email_verifications, user.username)
+        self._remove_user_tokens(self._sessions, user.username)
+        self._remove_user_tokens(self._password_resets, user.username)
 
     def get_user_by_username(self, username: str) -> User | None:
-        user = self._users.get(username)
+        user = self._users.get(username.casefold())
         return self._to_public_user(user) if user is not None else None
 
     def get_user_by_email(self, email: str) -> User | None:
@@ -111,16 +113,16 @@ class InMemoryUserStore(UserStore[User]):
         return None
 
     def get_password_hash(self, username: str) -> str:
-        return self._users[username].password_hash
+        return self._users[username.casefold()].password_hash
 
     def set_password_hash(self, username: str, password_hash: str) -> None:
-        self._users[username].password_hash = password_hash
+        self._users[username.casefold()].password_hash = password_hash
 
     def get_email_verification(self, token_hash: str) -> UserToken | None:
         return self._email_verifications.get(token_hash)
 
     def set_email_verification(self, verification: UserToken) -> None:
-        self._users[verification.username]
+        self._users[verification.username.casefold()]
         self._remove_user_tokens(
             self._email_verifications,
             verification.username,
@@ -134,7 +136,7 @@ class InMemoryUserStore(UserStore[User]):
         return self._sessions.get(token_hash)
 
     def add_session(self, session: UserToken) -> None:
-        self._users[session.username]
+        self._users[session.username.casefold()]
         self._sessions[session.token_hash] = session
 
     def remove_session(self, token_hash: str) -> None:
@@ -152,7 +154,7 @@ class InMemoryUserStore(UserStore[User]):
         return self._password_resets.get(token_hash)
 
     def set_password_reset(self, reset: UserToken) -> None:
-        self._users[reset.username]
+        self._users[reset.username.casefold()]
         self._remove_user_tokens(self._password_resets, reset.username)
         self._password_resets[reset.token_hash] = reset
 
@@ -176,13 +178,13 @@ class InMemoryUserStore(UserStore[User]):
         return role in self._roles
 
     def grant_role_to_user(self, username: str, role: str) -> None:
-        self._users[username].roles.add(role)
+        self._users[username.casefold()].roles.add(role)
 
     def revoke_role_from_user(self, username: str, role: str) -> None:
-        self._users[username].roles.discard(role)
+        self._users[username.casefold()].roles.discard(role)
 
     def get_user_roles(self, username: str) -> set[str]:
-        user = self._users.get(username)
+        user = self._users.get(username.casefold())
         return user.roles.copy() if user is not None else set()
 
     def create_permission(self, permission: str) -> None:
@@ -209,7 +211,7 @@ class InMemoryUserStore(UserStore[User]):
         return self._role_permissions.get(role, set()).copy()
 
     def get_user_permissions(self, username: str) -> set[str]:
-        user = self._users.get(username)
+        user = self._users.get(username.casefold())
         if user is None:
             return set()
 
