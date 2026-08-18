@@ -444,19 +444,19 @@ wheels = [
 
 [[package]]
 name = "userharbor"
-version = "0.7.0"
+version = "0.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pwdlib", extra = ["argon2"] },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2e/e6/10332259e7cf75580372e9d2b15286d08acb3b21b7c9528bbcaec6b03d68/userharbor-0.7.0.tar.gz", hash = "sha256:372b261ec884b7897218d52a33621ea4e2a7bda9848959769a9393c148db2da8", size = 11339, upload-time = "2026-07-26T14:44:48.675Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a7/14/8a7bd78cd3caa678ea0a6d879562b1f2ba05fc2ae5a0f6e1029eef9399ae/userharbor-0.8.0.tar.gz", hash = "sha256:df48a580b0f1080b1f01a9c64c2cb863b0c604d81a60a74a06fd388d779fa90e", size = 11877, upload-time = "2026-08-18T13:00:10.208Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/96/e0/d450c9ccc7e87161d6ddce5cb77fcd3f128cf4f5d8c9b68702c18c81f141/userharbor-0.7.0-py3-none-any.whl", hash = "sha256:5b7ab79045c5c6f702466cc9bd3ac6c1ba094e5bc2b45258fc05c22ea6d807e4", size = 17811, upload-time = "2026-07-26T14:44:47.603Z" },
+    { url = "https://files.pythonhosted.org/packages/32/aa/48111603821a80f40edfb9e0201c375b8b2159b7b929dff052497117ac81/userharbor-0.8.0-py3-none-any.whl", hash = "sha256:8cae2747038453642378b84fd8839896eeacbfb62c2e8dd17da1380096081055", size = 18395, upload-time = "2026-08-18T13:00:09.081Z" },
 ]
 
 [[package]]
 name = "userharbor-inmemory"
-version = "0.2.0"
+version = "0.2.1"
 source = { editable = "." }
 dependencies = [
     { name = "userharbor" },
@@ -469,7 +469,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "userharbor", specifier = ">=0.7.0" }]
+requires-dist = [{ name = "userharbor", specifier = ">=0.8.0" }]
 
 [package.metadata.requires-dev]
 dev = [
