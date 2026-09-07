@@ -1,6 +1,6 @@
 [project]
 name = "userharbor-inmemory"
-version = "0.2.1"
+version = "0.3.0"
 description = "A minimal, contract-tested UserStore implementation and GitHub template for building custom UserHarbor storage integrations."
 readme = "README.md"
 requires-python = ">=3.10"

@@ -161,6 +161,9 @@ class InMemoryUserStore(UserStore[User]):
     def remove_password_reset(self, token_hash: str) -> None:
         self._password_resets.pop(token_hash, None)
 
+    def remove_password_reset_for_user(self, username: str) -> None:
+        self._remove_user_tokens(self._password_resets, username)
+
     def create_role(self, role: str) -> None:
         self._roles.add(role)
         self._role_permissions.setdefault(role, set())
