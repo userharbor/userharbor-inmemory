@@ -10,7 +10,7 @@
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Pytest](https://img.shields.io/badge/testing-Pytest-red?logo=pytest&logoColor=red)](https://docs.pytest.org/)
 
-`userharbor-inmemory` is a minimal, contract-tested [`UserStore`](https://userharbor.github.io/userharbor/integrations/custom/) implementation for [UserHarbor](https://github.com/userharbor/userharbor). It can be installed directly for tests and examples or used as a GitHub template when building a custom storage integration.
+`userharbor-inmemory` is a minimal, contract-tested [`UserStore`](https://userharbor.github.io/integrations/custom/) implementation for [UserHarbor](https://github.com/userharbor/userharbor). It can be installed directly for tests and examples or used as a GitHub template when building a custom storage integration.
 
 > [!WARNING]
 > All data is process-local and is lost when the store instance is discarded. This package is not a persistent database and is not intended for production storage.
@@ -88,7 +88,7 @@ def user_store() -> InMemoryUserStore:
     return InMemoryUserStore()
 ```
 
-See the [UserStore contract testing guide](https://userharbor.github.io/userharbor/Development/contract-tests/) and [custom integrations guide](https://userharbor.github.io/userharbor/integrations/custom/) for the complete behavioral requirements.
+See the [UserStore contract testing guide](https://userharbor.github.io/Development/contract-tests/) and [custom integrations guide](https://userharbor.github.io/integrations/custom/) for the complete behavioral requirements.
 
 ## Development
 
